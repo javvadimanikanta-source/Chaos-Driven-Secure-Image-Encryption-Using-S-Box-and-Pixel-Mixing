@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sender</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>📤 Send Secure Image</h1>
+
+{% if error %}
+<p class="error">{{ error }}</p>
+{% endif %}
+
+
+<form method="POST" enctype="multipart/form-data">
+
+<input
+type="file"
+name="image"
+accept=".jpg,.jpeg,.png,.bmp,.tiff,.webp"
+required>
+
+<input
+    type="text"
+    name="receiver_username"
+    placeholder="Enter receiver username"
+    required
+>
+
+<input
+type="text"
+name="secret_key"
+placeholder="Secret Key"
+required>
+
+<button type="submit">
+Encrypt & Send
+</button>
+<div class="home-container">
+    <a href="/" class="home-btn">
+        🏠 Home
+    </a>
+</div>
+
+</form>
+
+</div>
+
+</body>
+</html>

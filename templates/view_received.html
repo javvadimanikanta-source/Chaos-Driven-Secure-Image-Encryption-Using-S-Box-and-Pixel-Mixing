@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Received Image</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="preview-container">
+
+    <h2> Received Image</h2>
+
+    <div class="image-card">
+
+        <img
+        src="{{ url_for(
+            'static',
+            filename='decrypted/' + decrypted_file
+        ) }}">
+
+    </div>
+
+    <p class="filename">
+        {{ decrypted_file }}
+    </p>
+
+    <a href="{{ url_for(
+        'static',
+        filename='decrypted/' + decrypted_file
+    ) }}"
+    download>
+
+        <button>
+            Download Decrypted Image
+        </button>
+
+    </a>
+
+</div>
+
+</body>
+</html>

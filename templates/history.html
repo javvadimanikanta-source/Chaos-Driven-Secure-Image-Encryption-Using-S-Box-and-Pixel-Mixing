@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Image History</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="history-page">
+
+    <div class="history-container">
+
+        <div class="top-bar">
+
+            <h1>📜 Image History</h1>
+
+            <a href="/" class="dashboard-btn">
+                Dashboard
+            </a>
+
+        </div>
+
+        <form method="GET">
+
+            <input
+            type="text"
+            name="search"
+            value="{{ search }}"
+            class="search-box"
+            placeholder="Search sender, receiver, filename or date">
+
+        </form>
+
+        {% if history %}
+
+        <table class="history-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Type</th>
+
+                    <th>Sender</th>
+
+                    <th>Receiver</th>
+
+                    <th>Image</th>
+
+                    <th>Date</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for row in history %}
+
+                <tr>
+
+                    <td>{{ row["id"] }}</td>
+
+                    <td>
+
+                        {% if row["sender"] == session["user"] %}
+
+                            <span class="sent">
+                                Sent
+                            </span>
+
+                        {% else %}
+
+                            <span class="received">
+                                Received
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>{{ row["sender"] }}</td>
+
+                    <td>{{ row["receiver"] }}</td>
+
+                    <td>
+
+                        <a class="file-link"
+                        href="{{ url_for('view_history', image_id=row['id']) }}">
+
+                            {{ row['encrypted_filename'] }}
+
+                        </a>
+
+                    </td>
+
+                    <td>{{ row["sent_time"] }}</td>
+                    <td>
+
+                        <a href="{{ url_for('delete_history', image_id=row['id']) }}"
+                            onclick="return confirm('Are you sure you want to delete this record?')">
+
+                            <button class="delete-btn">
+                                Delete
+                            </button>
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% else %}
+
+            <div class="empty-history">
+
+                No image history available.
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

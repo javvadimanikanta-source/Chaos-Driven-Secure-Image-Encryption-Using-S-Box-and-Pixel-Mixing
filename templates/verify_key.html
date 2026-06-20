@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verify Secret Key</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="verify-container">
+
+    <h2>🔑 Enter Secret Key</h2>
+
+    {% if error %}
+        <div class="error-box">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    <form method="POST"
+          action="/decrypt_history/{{ image['id'] }}">
+
+        <input
+            type="password"
+            name="secret_key"
+            placeholder="Enter Secret Key"
+            required>
+
+        <button type="submit">
+            View Image
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Receiver Inbox</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+
+        .receiver-layout{
+            display:flex;
+            gap:30px;
+            align-items:flex-start;
+            margin-top:20px;
+        }
+
+        .inbox-list{
+            width:45%;
+            max-height:550px;
+            overflow-y:auto;
+            padding-right:10px;
+        }
+
+        .action-panel{
+            width:55%;
+        }
+
+        .image-card{
+            background:rgba(255,255,255,0.10);
+            border-radius:15px;
+            padding:15px;
+            margin-bottom:15px;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        .image-card:hover{
+            background:rgba(255,255,255,0.18);
+            transform:translateY(-2px);
+        }
+
+        .image-card p{
+            margin:6px 0;
+        }
+
+        .empty{
+            color:#ffb3b3;
+            font-weight:bold;
+            margin-top:20px;
+        }
+
+        select{
+            width:100%;
+            padding:15px;
+            margin:15px 0;
+            border:none;
+            border-radius:15px;
+        }
+
+        .action-panel input{
+            width:100%;
+            padding:15px;
+            margin:15px 0;
+            border:none;
+            border-radius:15px;
+        }
+
+        .action-panel button{
+            width:100%;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="box receiver-box">
+
+    <h1>📥 Receiver Inbox</h1>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    {% if images|length == 0 %}
+
+        <p class="empty">
+            No encrypted images received yet.
+        </p>
+
+    {% else %}
+
+        <h3>Total Messages : {{ images|length }}</h3>
+
+        <div class="receiver-layout">
+
+            <!-- LEFT SIDE -->
+            <div class="inbox-list">
+
+                {% for image in images %}
+
+                <div
+                    class="image-card"
+                    onclick="selectImage('{{ image[0] }}')"
+                >
+
+                    <p>
+                        📷 <strong>File:</strong>
+                        {{ image[0] }}
+                    </p>
+
+                    <p>
+                        👤 <strong>Sender:</strong>
+                        {{ image[1] }}
+                    </p>
+
+                    <p>
+                        🕒 <strong>Received:</strong>
+                        {{ image[2] }}
+                    </p>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            <!-- RIGHT SIDE -->
+            <div class="action-panel">
+
+                <form method="POST">
+
+                    <label><b>Select Image</b></label>
+
+                    <select
+                        name="image_name"
+                        id="imageSelect"
+                        required
+                    >
+                        {% for image in images %}
+                            <option value="{{ image[0] }}">
+                                {{ image[0] }}
+                                (From {{ image[1] }})
+                            </option>
+                        {% endfor %}
+                    </select>
+
+                    <input
+                        type="text"
+                        name="secret_key"
+                        placeholder="Enter Secret Key"
+                        required
+                    >
+
+                    <button type="submit">
+                        🔓 Decrypt Image
+                    </button>
+
+                    <div class="home-container">
+                        <a href="/" class="home-btn">
+                            🏠 Home
+                        </a>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+<script>
+
+function selectImage(filename)
+{
+    document.getElementById("imageSelect").value = filename;
+}
+
+</script>
+
+</body>
+</html>

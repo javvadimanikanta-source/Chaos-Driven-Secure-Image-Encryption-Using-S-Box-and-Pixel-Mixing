@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Result</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+<style>
+
+.preview-image{
+width:350px;
+max-width:100%;
+margin-top:20px;
+border-radius:10px;
+}
+
+.download-btn{
+display:inline-block;
+margin-top:20px;
+padding:10px 20px;
+background:#28a745;
+color:white;
+text-decoration:none;
+border-radius:8px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>✅ Success</h1>
+
+<h2>{{ message }}</h2>
+
+<p>{{ image_name }}</p>
+
+{% if image_path %}
+
+<img
+src="{{ url_for('static', filename=image_path) }}"
+class="preview-image">
+
+<br>
+
+<a
+href="{{ url_for('static', filename=image_path) }}"
+download
+class="download-btn">
+
+⬇ Download Image
+
+</a>
+
+{% endif %}
+
+<br><br>
+
+<a href="/">Back To Dashboard</a>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Original Image</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="box">
+
+    <h2>📤 Sent Image</h2>
+
+    <br>
+
+    <h3>{{ image['original_filename'] }}</h3>
+
+    <p>
+    Path:
+    {{ url_for(
+        'static',
+        filename='uploads/' + image['original_filename']
+    ) }}
+    </p>
+
+    <img src="{{ url_for('static',filename='uploads/' + image['original_filename']) }}"width="350">
+
+    <br><br>
+
+    <a href="{{ url_for(
+        'static',
+        filename='uploads/' +
+        image['original_filename']
+    ) }}"
+    download>
+
+        <button>
+            Download Original Image
+        </button>
+
+    </a>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard</title>
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="box">
+
+    <h1>AegisPix</h1>
+    <h3>Secure Image Sharing</h3>
+
+    <p class="username">
+        Welcome {{ username }}
+    </p>
+    <div class="stats-container">
+
+        <div class="stat-card">
+            <h2>{{ sent_count }}</h2>
+            <p>Images Sent</p>
+        </div>
+
+        <div class="stat-card">
+            <h2>{{ received_count }}</h2>
+            <p>Images Received</p>
+        </div>
+
+    </div>
+    <a href="/profile" >
+        <button>👤 My Profile</button>
+    </a>
+
+    <a href="/sender">
+        <button>📤 Send Image</button>
+    </a>
+    
+
+    <a href="/receiver">
+        <button>📥 Receive Image</button>
+    </a>
+    <a href="/history">
+        <button>
+
+            📜 View History
+        </button>
+    </a>
+
+    <a href="/logout">
+        <button>🚪 Logout</button>
+    </a>
+
+</div>
+
+</body>
+</html>
